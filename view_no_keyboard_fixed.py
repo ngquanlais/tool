@@ -35,7 +35,7 @@ MAINTENANCE_FILE = 'maintenance.json'
 MAX_RETRIES = 3
 # Thời gian chờ tối đa cho mỗi yêu cầu HTTP (giây)
 REQUEST_TIMEOUT = 10
-DAILY_VIEW_LIMIT = 15000
+DAILY_VIEW_LIMIT = 60000
 # ID của update cuối cùng đã xử lý (để tránh lặp lại)
 last_update_id = -1
 
@@ -370,9 +370,9 @@ def get_target_quantity(username):
         print(f"{Fore.RED}{Style.BRIGHT}  Lỗi: Số lượng phải là số nguyên dương! Nhập lại:{Style.RESET_ALL}".center(68))
         target = input(f"{Fore.GREEN}{Style.BRIGHT}  Số lượng: {Style.RESET_ALL}")
     view_count = int(target)
-    remaining_views = 15000 - accounts[username]['view_count']
+    remaining_views = 60000 - accounts[username]['view_count']
     if remaining_views <= 0:
-        print(f"{Fore.RED}{Style.BRIGHT}  Lỗi: Bạn đã dùng hết 15.000 view trong 6 tiếng gần nhất!{Style.RESET_ALL}".center(68))
+        print(f"{Fore.RED}{Style.BRIGHT}  Lỗi: Bạn đã dùng hết 60.000 view trong 6 tiếng gần nhất!{Style.RESET_ALL}".center(68))
         return None
     if view_count > remaining_views:
         print(f"{Fore.RED}{Style.BRIGHT}  Lỗi: Chỉ còn {remaining_views:,} view khả dụng trong 6 tiếng này!{Style.RESET_ALL}".center(68))
@@ -464,10 +464,10 @@ def social_media_booster():
                 if not check_daily_limit(username):
                     clear_screen()
                     draw_border(Fore.RED)
-                    print(f"{Fore.RED}{Style.BRIGHT}  Tài khoản đã đạt giới hạn 15,000 view trong 6 tiếng!{Style.RESET_ALL}".center(68))
+                    print(f"{Fore.RED}{Style.BRIGHT}  Tài khoản đã đạt giới hạn 60,000 view trong 6 tiếng!{Style.RESET_ALL}".center(68))
                     print(f"{Fore.YELLOW}{Style.BRIGHT}  Vui lòng chờ đến ngày mai để tiếp tục.{Style.RESET_ALL}".center(68))
                     draw_bottom_border()
-                    send_to_telegram(f"Tài khoản *{username}* đã đạt giới hạn 15,000 view trong 6 tiếng!", include_ip=True)
+                    send_to_telegram(f"Tài khoản *{username}* đã đạt giới hạn 60,000 view trong 6 tiếng!", include_ip=True)
                     input(f"{Fore.GREEN}{Style.BRIGHT}  Nhấn Enter để tiếp tục...{Style.RESET_ALL}")
                     continue
                 
